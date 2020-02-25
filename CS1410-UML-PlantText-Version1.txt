@@ -1,0 +1,56 @@
+@startuml
+
+title CS1410 Project - Version1.0
+
+Abstract class People {
+- availableSpace: int =4;
+- identification: String;
+- waitingTime: int;
+- complaints; int;
+
++ People(identification: String,waitingTime: int,complaints; int);
+
+}
+
+class Building extends Clock{
+- floors[]: int = 6;
+}
+
+class Lift extends Building{
+-space() : int = 4;
+- isFull(): boolean = false;
+- addPerson();
+- removePerson();
+}
+
+class Floors extends Lift{
+-floorQueueSize: int = 0;
+- addPersonToQueue();
+}
+
+class Queue extends Floors{
+- queueSize: int;
+}
+
+class Clock extends People {
+- simulationTime: int;
+}
+
+
+class Complaints extends People {
+- complaints; int;
+}
+
+class Clients extends People {
++isPatient(): boolean = false;
+}
+
+class Employees extends People {}
+
+class Developers extends Employees {}
+
+class MaintenanceCrew extends Employees{}
+
+class EmployeesNotDevelopers extends Employees {}
+
+@enduml
