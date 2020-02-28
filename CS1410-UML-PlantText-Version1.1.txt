@@ -1,0 +1,93 @@
+@startuml
+
+title CS1410 Project - Version1.0
+
+class Building {
+- floors[]: floors = 7;
+- Lift : Lift;
+- simulationTime: int;
+}
+
+class Floors {
+- floorQueueSize[]: People[]
+- name : String;
++ getName();
++ callLift: Boolean:
++ addPersonToQueue();
++ transferToLift();
++ Floors(name);
+}
+
+class Button{
+- name:String;
++ isPressed: boolean;
++ Button(name);
+}
+
+Abstract class People {
+- space: int ;
+- identification: int;
+- waitingTime: Tick;
+- complaints; int = 5;
++ getID();
++ getSpace();
++ addComplaint()
++ getComplaint()
++ People(identification,waitingTime, space);
+
+}
+
+class Lift {
+- people: people<HashMap>;
+- ElapsedTime:Tick:
+- space : int = 4;
++ move();
++ addPerson();
++ removePerson();
++ Lift();
+}
+
+Abstract class Tick  {
+- Tick: int;
+- TickCounter();
++ toString();
++ getTick();
++ startTick();
++ stopTick();
++ Tick();
+}
+
+
+ class Employees extends People{
+ - Permission:Floor[];
+ + HasPersmisson()
+ + Employees(super);
+}
+
+class Developers extends Employees{
++ Developers(super);
+}
+
+class MaintenanceCrew extends Employees{
++ MaintanenceCrew(super);
+}
+
+class EmployeesNotDevelopers extends Employees{
++EmployeesNotDevelopers(super)
+}
+
+class Clients extends People{
+- isPatient: boolean;
++ isPatient(): 
++ Clients(super);
+}
+Building *-down- Floors
+Building *-down- Lift
+Tick o-right- Building
+Tick o-left- Lift
+Tick o-left- People
+Lift o-down- Button
+Floors o-down- Button
+People o-down- Lift
+People o-down-Floors
+@enduml
