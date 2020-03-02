@@ -1,0 +1,106 @@
+@startuml
+
+title CS1410 Project - Version1.0
+
+class Building {
+  - floors[]: floors = 7;
+  - Lift : Lift;
+  - simulationTime: int;
+
+  + addComplaint(c: Client)
+  + getComplaints(): List<Client>
+}
+
+class Stats{
+- probabilityQ: double;
+- probabilityP: double;
+- seed: double;
+- tick : Tick;
+- avgWaitingTime: double;
++ getSeed()
++ getQ()
++ getP()
+- totalComplaints: double;
+}
+
+class Floor {
+- floorQueueSize[]: People[]
+- name : String;
++ getName()
++ callLift: Boolean:
++ addPersonToQueue()
++ transferToLift()
++ Floor(name)
+}
+
+Abstract class Person{
+  - space: int 
+  - identification: int
+  - waitingTime: Tick
+
+  + Person(id: int, space: int)
+  + getID()
+  + getSpace(): int
+}
+
+class Lift {
+- person: person<HashMap>;
+- ElapsedTime:Tick:
+- space : int = 4;
++ move()
++ arrive(p: Person)
++ leave(p: Person)
++ request(floor: Floor)
++ Lift()
+}
+
+Abstract class Tick  {
+- Tick: int
+- TickCounter()
++ toString()
++ getTick()
++ startTick()
++ stopTick()
++ Tick();
+}
+
+
+ class Employees extends person{
+ - Permission:Floor[];
+ + HasPersmisson()
+ + Employees(super)
+}
+
+class Developers extends Employees{
++ Developers(super)
+}
+
+class MaintenanceCrew extends Employees{
++ MaintanenceCrew(super)
+}
+
+class EmployeesNotDevelopers extends Employees{
++EmployeesNotDevelopers(super)
+}
+
+class Clients extends person{
+  - isPatient: boolean;
+  + isPatient() 
+  + Clients(super)
+}
+
+Building *-down- "*" Floors
+Building *-down- Lift
+
+Tick -right-o Building
+Tick o-left- Lift
+Tick o-left- person
+Lift o-down- Button
+
+Lift "0..1" -- "*" Floors: requestedAt
+
+person "*" -down-o "0..1" Lift
+person "*" -down-o "0..1" Floors
+Stats *-left- Tick
+Stats -right-o Building
+@enduml
